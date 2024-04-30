@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] Rigidbody rb;
 
+    [SerializeField] Animator animator;
+
     private bool isGrounded;
 
     private void Start()
@@ -27,6 +29,9 @@ public class PlayerMovement : MonoBehaviour
         horizontalMovement *= Time.deltaTime;
 
         transform.Translate(horizontalMovement, 0, forwardMovement);
+
+        // Animaciones.
+        animator.SetFloat("VelZ", Mathf.Abs(horizontalMovement) + Mathf.Abs(forwardMovement));
 
         // Salto.
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f);

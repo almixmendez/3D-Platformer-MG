@@ -505,9 +505,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 543450651955440179}
+  - component: {fileID: 919132147685683340}
   - component: {fileID: 919132147685683338}
   - component: {fileID: 919132147685683339}
-  - component: {fileID: 919132147685683340}
+  - component: {fileID: 919132147685683341}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -557,6 +558,7 @@ MonoBehaviour:
   playerSpeed: 10
   jumpForce: 2.5
   rb: {fileID: 919132147685683338}
+  animator: {fileID: 919132147685683341}
 --- !u!135 &919132147685683340
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -578,6 +580,27 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.35165542
   m_Center: {x: -0, y: 0.31679517, z: -0}
+--- !u!95 &919132147685683341
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147685683337}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 47c306bbce2611848a79f9a14458f952, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1891019082430054417
 GameObject:
   m_ObjectHideFlags: 0
