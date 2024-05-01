@@ -357,8 +357,10 @@
 "Assets/Resources/Kawaii Slimes/Cameras/Scripts/PivotBasedCameraRig.cs"
 "Assets/Resources/Kawaii Slimes/Scripts/AI/EnemyAi.cs"
 "Assets/Resources/Kawaii Slimes/Scripts/AI/Face.cs"
-"Assets/Resources/Kawaii Slimes/Scripts/GameManager.cs"
+"Assets/Resources/Kawaii Slimes/Scripts/GameManagerSlime.cs"
 "Assets/Scripts/CameraControl.cs"
+"Assets/Scripts/DeathFloor.cs"
+"Assets/Scripts/GameManager.cs"
 "Assets/Scripts/PlayerMovement.cs"
 -langversion:9.0
 

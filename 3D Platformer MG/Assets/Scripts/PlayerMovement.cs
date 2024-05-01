@@ -10,12 +10,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Rigidbody rb;
 
     [SerializeField] Animator animator;
+    [SerializeField] Transform player;
+
+    public static PlayerMovement instance;
 
     private bool isGrounded;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
         rb = GetComponent<Rigidbody>();
     }
 
@@ -32,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Animaciones.
         animator.SetFloat("VelZ", Mathf.Abs(horizontalMovement) + Mathf.Abs(forwardMovement));
+        animator.SetBool("Grounded", isGrounded);
 
         // Salto.
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.1f);
@@ -39,12 +47,6 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        }
-
-        // Deslockear el cursor del mouse.
-        if (Input.GetKeyDown("escape"))
-        {
-            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
