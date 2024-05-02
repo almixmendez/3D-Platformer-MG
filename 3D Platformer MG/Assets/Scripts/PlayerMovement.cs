@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,9 +14,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] Animator animator;
     [SerializeField] Transform player;
 
+    [SerializeField] GameObject winPanel;
+    [SerializeField] GameObject wheresKeyPanel;
+    [SerializeField] GameObject chest;
+    [SerializeField] public TextMeshProUGUI keyText;
+    
+    public GameManager gameManager;
+
     public static PlayerMovement instance;
 
     private bool isGrounded;
+    private bool hasKey;
 
     private void Awake()
     {
@@ -24,6 +34,10 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        winPanel.SetActive(false);
+        wheresKeyPanel.SetActive(false);
+        hasKey = PlayerPrefs.GetInt("hasKey", 0) == 1;
+        UpdateKeyText();
     }
 
     private void Update()
@@ -48,5 +62,45 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        // Condiciones de victoria.
+        if (other.CompareTag("Key"))
+        {
+            Debug.Log("Player picked up the key!");
+            keyText.text = "Key: found!";
+            hasKey = true;
+            UpdateKeyText();
+            Destroy(other.gameObject);
+            PlayerPrefs.SetInt("hasKey", hasKey ? 1 : 0);
+        }
+        else if (other.CompareTag("Win") && hasKey)
+        {
+            Debug.Log("Player won!");
+            winPanel.SetActive(true);
+            chest.SetActive(true);
+        }
+        else
+        {
+            wheresKeyPanel.SetActive(true);
+        }
+    }
+
+    public void OkButton()
+    {
+        wheresKeyPanel.SetActive(false);
+        winPanel.SetActive(false);
+    }
+
+    private void UpdateKeyText()
+    {
+        keyText.text = hasKey ? "Key: found!" : "Key: not found :c";
+    }
+
+    public void UpdateHasKey()
+    {
+        hasKey = PlayerPrefs.GetInt("hasKey", 0) == 1;
+        keyText.text = hasKey ? "Key: found!" : "Key: not found :c";
     }
 }
