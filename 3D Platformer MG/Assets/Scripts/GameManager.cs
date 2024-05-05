@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -31,32 +32,24 @@ public class GameManager : MonoBehaviour
 
     public void Respawn()
     {
-        StartCoroutine("RespawnWaiter");
-    }
-
-    public IEnumerator RespawnWaiter()
-    {
-        PlayerMovement.instance.gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(2f);
-
         PlayerMovement.instance.transform.position = respawnPosition;
         PlayerMovement.instance.gameObject.SetActive(true);
-
-        UpdatePlayerState();
     }
+
+    //public IEnumerator RespawnWaiter()
+    //{
+    //    PlayerMovement.instance.gameObject.SetActive(false);
+
+    //    yield return new WaitForSeconds(2f);
+
+    //    PlayerMovement.instance.transform.position = respawnPosition;
+    //    PlayerMovement.instance.gameObject.SetActive(true);
+
+    //    UpdatePlayerState();
+    //}
 
     private void UpdatePlayerState()
     {
         PlayerMovement.instance.UpdateHasKey();
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("I found the key!");
-            Destroy(gameObject);
-        }
     }
 }

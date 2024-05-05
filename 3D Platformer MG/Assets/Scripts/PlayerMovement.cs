@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] GameObject winPanel;
     [SerializeField] GameObject wheresKeyPanel;
+    [SerializeField] GameObject loosePanel;
     [SerializeField] GameObject chest;
     [SerializeField] public TextMeshProUGUI keyText;
     
@@ -80,10 +82,22 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("Player won!");
             winPanel.SetActive(true);
             chest.SetActive(true);
+            hasKey = false;
+            UpdateKeyText();
+            PlayerPrefs.SetInt("hasKey", hasKey ? 1 : 0);
         }
         else
         {
             wheresKeyPanel.SetActive(true);
+        }
+
+        // Condicion de derrota.
+        if (other.gameObject.CompareTag("DeathFloor"))
+        {
+            loosePanel.SetActive(true);
+            hasKey = false;
+            UpdateKeyText();
+            PlayerPrefs.SetInt("hasKey", hasKey ? 1 : 0);
         }
     }
 
@@ -102,5 +116,21 @@ public class PlayerMovement : MonoBehaviour
     {
         hasKey = PlayerPrefs.GetInt("hasKey", 0) == 1;
         keyText.text = hasKey ? "Key: found!" : "Key: not found :c";
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Adió");
+        Application.Quit();
+    }
+
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
